@@ -1,0 +1,10 @@
+.DS_Store
+/.build
+/Packages
+xcuserdata/
+DerivedData/
+.swiftpm/configuration/
+.netrc
+
+# 転送用の一時アーカイブ（ソースの派生物、バージョン管理対象外）
+*.zip
