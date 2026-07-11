@@ -3,11 +3,17 @@
 import PackageDescription
 import AppleProductTypes
 
-// NOTE: このPackage.swiftはWindows環境（Swiftツールチェーンなし）で作成しており、
-// AppleProductTypesのAPIシグネチャを実機コンパイルで検証できていない。
-// Swift Playgrounds / Xcodeで最初に開いてビルドエラーが出た場合は、
-// エディタの自動補完に従ってこのファイルのパラメータを合わせること。
-
+// NOTE (2026-07-11 CI失敗を受けて修正):
+// AppleProductTypesの `Capability` enumにはHealthKitのケースが存在しない
+// （GitHub Actions上のビルドエラーで判明。コミュニティ収集のAPI一覧でも確認済み）。
+// App Playground形式のcapabilities配列は主にInfo.plistの利用目的文言で完結する権限
+// （camera, location, microphone等）向けで、HealthKitのような「Apple Developer Portor
+// のApp ID側でcapabilityを有効化する必要がある」種類のentitlementはここでは扱えない。
+// → HealthKit自体は`import HealthKit`してAPIを呼ぶだけなら本ファイルの変更なしにコンパイルは通るが、
+//   実機でHKHealthStore.requestAuthorizationが本当に許可されるかは、Xcodeで一度開いて
+//   Signing & Capabilitiesタブから"HealthKit"を追加し、entitlementsファイルを生成しないと
+//   検証できない可能性が高い（未検証。詳細はideaLifelog.md参照）。
+// appCategoryも `.healthAndFitness` ではなく `.healthcareFitness` が正しいケース名だった。
 let package = Package(
     name: "Lifelog",
     platforms: [
@@ -27,10 +33,7 @@ let package = Package(
             supportedInterfaceOrientations: [
                 .portrait
             ],
-            capabilities: [
-                .healthKit()
-            ],
-            appCategory: .healthAndFitness
+            appCategory: .healthcareFitness
         )
     ],
     targets: [
