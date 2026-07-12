@@ -3,6 +3,11 @@
 Apple Watch/iPhoneのHealthKitデータ（睡眠・運動）をLifeHubに送るネイティブアプリ。
 設計の経緯・決定事項は `ideas/aiChat/ideaLifelog.md`（正本）を参照。
 
+## ⏸️ 現在のステータス: 保留中
+
+HealthKit entitlementが`.swiftpm`形式で設定できるか未検証のまま保留している（Mac/クラウドMac確保待ち）。
+**再開時はまず`ideaLifelog.md`の§0-9・§0-10を読むこと。** 課題整理と、MacinCloud等でMacを確保した際の作業手順（Xcodeで何を確認し、ダメだった場合に何をするか）を記録済み。
+
 ## この場所について
 
 `SideWork/apps/lifehub` monorepo内に同居しているが、他の`apps/*`（Next.js）とは技術スタックが異なるため、
